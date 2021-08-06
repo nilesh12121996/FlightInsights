@@ -1,0 +1,29 @@
+Upload input file to HDFS
+
+	hdfs dfs -mkdir -p input
+	hdfs dfs -put input/* input
+	
+Oozie Installation and config
+	cd ~/oozie-5.1.0/distro/target/oozie-5.1.0-distro/oozie-5.1.0
+	sudo tar xvf oozie-sharelib-4.3.0.tar.gz 
+	cd ~/hadoop
+	hdfs dfs -put ~/oozie-5.1.0/distro/target/oozie-5.1.0-distro/oozie-5.1.0/share share
+	cd ~/oozie-5.1.0/distro/target/oozie-5.1.0-distro/oozie-5.1.0
+	/bin/ooziedb.sh create -sqlfile oozie.sql -run
+	/bin/oozied.sh start
+
+Upload workflow.xml to HDFS
+
+Compile the java files and make a jar file and upload the jar file to HDFS
+
+	javac *.java
+	jar -cvf FlightProb.jar *.class
+	hdfs dfs -put ~/final_project /user/ns934/
+
+Run the program
+
+	oozie job -oozie http://localhost:11000/oozie -config job.properties -run
+
+	hdfs dfs -get project_temp/output output
+
+
